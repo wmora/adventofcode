@@ -37,4 +37,17 @@ public class Day1Test {
         assertEquals(12, day1.blocksAwayFromEasterBunnyHq(sequence));
     }
 
+    @Test
+    public void testFirstRepeatedCoordinates() {
+        List<String> sequence = new ArrayList<>();
+        sequence.add("R8");
+        sequence.add("R4");
+        sequence.add("R4");
+        sequence.add("R8");
+
+        Day1 day1 = new Day1();
+
+        assertEquals(4, day1.firstRepeatedCoordinates(sequence));
+    }
+
 }

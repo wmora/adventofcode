@@ -1,8 +1,6 @@
 package com.wmora.adventofcode;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 class Day1 {
 
@@ -63,6 +61,48 @@ class Day1 {
         return null;
     }
 
+    int firstRepeatedCoordinates(List<String> sequence) {
+        Set<String> visitedCoordinates = new HashSet<>();
+
+        int x = 0;
+        int y = 0;
+
+        visitedCoordinates.add(getKey(x, y));
+
+        Direction direction = Direction.NORTH;
+
+        for (String step : sequence) {
+            direction = getNewDirection(direction, step);
+            int blocks = getStepBlocks(step);
+            for (int i = 0; i < blocks; i++) {
+                switch (direction) {
+                    case NORTH:
+                        y++;
+                        break;
+                    case EAST:
+                        x++;
+                        break;
+                    case WEST:
+                        x--;
+                        break;
+                    case SOUTH:
+                        y--;
+                        break;
+                }
+                if (visitedCoordinates.contains(getKey(x, y))) {
+                    return Math.abs(x) + Math.abs(y);
+                }
+                visitedCoordinates.add(getKey(x, y));
+            }
+        }
+
+        return Math.abs(x) + Math.abs(y);
+    }
+
+    private String getKey(int x, int y) {
+        return "x:" + x + ",y:" + y;
+    }
+
     public static void main(String[] args) {
         String input = "R2, L3, R2, R4, L2, L1, R2, R4, R1, L4, L5, R5, R5, R2, R2, R1, L2, L3, L2, L1, R3, L5, R187, R1, R4, L1, R5, L3, L4, R50, L4, R2, R70, L3, L2, R4, R3, R194, L3, L4, L4, L3, L4, R4, R5, L1, L5, L4, R1, L2, R4, L5, L3, R4, L5, L5, R5, R3, R5, L2, L4, R4, L1, R3, R1, L1, L2, R2, R2, L3, R3, R2, R5, R2, R5, L3, R2, L5, R1, R2, R2, L4, L5, L1, L4, R4, R3, R1, R2, L1, L2, R4, R5, L2, R3, L4, L5, L5, L4, R4, L2, R1, R1, L2, L3, L2, R2, L4, R3, R2, L1, L3, L2, L4, L4, R2, L3, L3, R2, L4, L3, R4, R3, L2, L1, L4, R4, R2, L4, L4, L5, L1, R2, L5, L2, L3, R2, L2".replace(" ", "");
         Scanner scanner = new Scanner(input).useDelimiter(",");
@@ -73,6 +113,7 @@ class Day1 {
         }
 
         System.out.println(new Day1().blocksAwayFromEasterBunnyHq(sequence));
+        System.out.println(new Day1().firstRepeatedCoordinates(sequence));
     }
 
 }
