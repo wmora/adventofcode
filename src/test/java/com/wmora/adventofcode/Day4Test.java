@@ -20,4 +20,12 @@ public class Day4Test {
         assertEquals(1514, new Day4().sumOfSectorIds(rooms));
     }
 
+    @Test
+    public void testFindSectorId() {
+        List<String> rooms = new ArrayList<>();
+        rooms.add("qzmt-zixmtkozy-ivhz-343[]");
+
+        assertEquals(343, new Day4().findSectorId(rooms, "very encrypted name"));
+    }
+
 }

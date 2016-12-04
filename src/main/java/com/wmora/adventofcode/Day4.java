@@ -82,6 +82,47 @@ class Day4 {
         return occurrences;
     }
 
+    int findSectorId(List<String> rooms, String roomName) {
+        for (String room : rooms) {
+            if (roomName.equals(getDecryptedName(room))) {
+                return roomSectorId(room);
+            }
+        }
+        return -1;
+    }
+
+    private String getDecryptedName(String room) {
+        StringBuilder decryptedName = new StringBuilder();
+
+        int sectorId = roomSectorId(room);
+        int roomNameEndIndex = room.lastIndexOf("-");
+        String roomName = room.substring(0, roomNameEndIndex);
+
+
+        for (int i = 0; i < roomName.length(); i++) {
+            String character = String.valueOf(roomName.charAt(i));
+            if ("-".equals(character)) {
+                decryptedName.append(" ");
+            } else  {
+                decryptedName.append(rotateCharacter(character, sectorId));
+            }
+        }
+
+        return decryptedName.toString();
+    }
+
+    private String rotateCharacter(String character, int rotation) {
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
+        int index = alphabet.indexOf(character);
+        int rotatedIndex = index + rotation;
+
+        while (rotatedIndex >= alphabet.length()) {
+            rotatedIndex -= alphabet.length();
+        }
+
+        return String.valueOf(alphabet.charAt(rotatedIndex));
+    }
+
     public static void main(String[] args) throws FileNotFoundException {
         List<String> rooms = new ArrayList<>();
 
@@ -91,5 +132,6 @@ class Day4 {
         }
 
         System.out.println(new Day4().sumOfSectorIds(rooms));
+        System.out.println(new Day4().findSectorId(rooms, "northpole object storage"));
     }
 }
