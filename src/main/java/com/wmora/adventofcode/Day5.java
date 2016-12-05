@@ -24,6 +24,36 @@ class Day5 {
         return password;
     }
 
+    String getComplexPassword(String doorId) {
+        int passwordSize = 8;
+        String[] password = new String[passwordSize];
+
+        long currentIndex = 0;
+        int charactersFound = 0;
+
+        while (charactersFound < passwordSize) {
+            String hash = getHexadecimalMd5Hash(doorId + currentIndex);
+
+            if (hash.startsWith("00000")) {
+                try {
+                    int position = Integer.parseInt(String.valueOf(hash.charAt(5)));
+                    if (position < passwordSize && password[position] == null) {
+                        password[position] = String.valueOf(hash.charAt(6));
+                        charactersFound++;
+                    }
+                } catch (NumberFormatException ignored) {
+
+                }
+
+            }
+
+            currentIndex++;
+        }
+
+
+        return String.join("", password);
+    }
+
     private String getHexadecimalMd5Hash(String input) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
@@ -48,5 +78,6 @@ class Day5 {
 
     public static void main(String[] args) {
         System.out.println(new Day5().getPassword("wtnhxymk"));
+        System.out.println(new Day5().getComplexPassword("wtnhxymk"));
     }
 }

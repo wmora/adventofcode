@@ -13,4 +13,11 @@ public class Day5Test {
         assertEquals("18f47a30", new Day5().getPassword(doorId));
     }
 
+    @Test
+    public void testGetStrongerPassword() {
+        String doorId = "abc";
+
+        assertEquals("05ace8e3", new Day5().getComplexPassword(doorId));
+    }
+
 }
