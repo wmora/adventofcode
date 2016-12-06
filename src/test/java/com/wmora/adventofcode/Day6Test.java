@@ -32,4 +32,27 @@ public class Day6Test {
         assertEquals("easter", new Day6().getMessage(messages));
     }
 
+    @Test
+    public void testGetModifiedMessage() {
+        List<String> messages = new ArrayList<>();
+        messages.add("eedadn");
+        messages.add("drvtee");
+        messages.add("eandsr");
+        messages.add("raavrd");
+        messages.add("atevrs");
+        messages.add("tsrnev");
+        messages.add("sdttsa");
+        messages.add("rasrtv");
+        messages.add("nssdts");
+        messages.add("ntnada");
+        messages.add("svetve");
+        messages.add("tesnvt");
+        messages.add("vntsnd");
+        messages.add("vrdear");
+        messages.add("dvrsen");
+        messages.add("enarar");
+
+        assertEquals("advent", new Day6().getModifiedMessage(messages));
+    }
+
 }
