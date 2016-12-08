@@ -2,11 +2,56 @@ package com.wmora.adventofcode;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 class Day7 {
+
+    int sslSupportCount(List<String> ips) {
+        int count = 0;
+
+        for (String ip : ips) {
+            if (supportsSsl(ip)) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    private boolean supportsSsl(String ip) {
+        Set<String> abas = new HashSet<>();
+        Set<String> babs = new HashSet<>();
+
+        boolean insideSquareBrackets = false;
+
+        for (int i = 0; i < ip.length() - 2; i++) {
+            if (ip.charAt(i) == '[') {
+                insideSquareBrackets = true;
+            } else if (ip.charAt(i) == ']') {
+                insideSquareBrackets = false;
+            } else if (hasAba(ip.charAt(i), ip.charAt(i + 1), ip.charAt(i + 2))) {
+                String sequence = String.format("%s%s%s", ip.charAt(i), ip.charAt(i + 1), ip.charAt(i));
+                String reversedSequence = String.format("%s%s%s", ip.charAt(i + 1), ip.charAt(i), ip.charAt(i + 1));
+                if (insideSquareBrackets) {
+                    if (abas.contains(reversedSequence)) {
+                        return true;
+                    }
+                    babs.add(sequence);
+                } else {
+                    if (babs.contains(reversedSequence)) {
+                        return true;
+                    }
+                    abas.add(sequence);
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean hasAba(char c1, char c2, char c3) {
+        return (c2 != '[' && c2 != ']') && c1 != c2 && c1 == c3;
+    }
 
     int tlsSupportCount(List<String> ips) {
         int count = 0;
@@ -56,6 +101,7 @@ class Day7 {
         }
 
         System.out.println(new Day7().tlsSupportCount(ips));
+        System.out.println(new Day7().sslSupportCount(ips));
     }
 
 }

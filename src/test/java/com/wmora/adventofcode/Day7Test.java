@@ -20,5 +20,14 @@ public class Day7Test {
         assertEquals(2, new Day7().tlsSupportCount(ips));
     }
 
+    @Test
+    public void testSslSupportCount() {
+        List<String> ips = new ArrayList<>();
+        ips.add("aba[bab]xyz");
+        ips.add("xyx[xyx]xyx");
+        ips.add("aaa[kek]eke");
+        ips.add("zazbz[bzb]cdb");
 
+        assertEquals(3, new Day7().sslSupportCount(ips));
+    }
 }
