@@ -28,6 +28,14 @@ public class Day8 {
             }
         }
 
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                System.out.print(screen[i][j] ? "#" : ".");
+            }
+            System.out.println();
+        }
+        System.out.println();
+
         return litPixelCount;
     }
 
@@ -39,16 +47,6 @@ public class Day8 {
         } else if (instruction.startsWith("rotate column")) {
             applyRotateColumn(instruction);
         }
-
-        System.out.println(instruction);
-
-        for (int i = 0; i < HEIGHT; i++) {
-            for (int j = 0; j < WIDTH; j++) {
-                System.out.print(screen[i][j] ? "#" : ".");
-            }
-            System.out.println();
-        }
-        System.out.println();
     }
 
     private void applyRect(String instruction) {
