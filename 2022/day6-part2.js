@@ -5,14 +5,13 @@ const data = fs.readFileSync('day6input.txt', { encoding: 'utf8', flag: 'r' }).s
 let startOfMessageMarker = -1;
 
 data.forEach(line => {
-    for (let index = 13; index < line.length; index++) {
-        const lastThirteen = [...new Set(line.substring(index - 13, index).split(''))].join('');
+    for (let index = 14; index < line.length; index++) {
+        const lastFourteen = [...new Set(line.substring(index - 14, index).split(''))].join('');
 
-        if (lastThirteen.length === 13 && lastThirteen.indexOf(line.charAt(index)) < 0) {
-            startOfMessageMarker = index + 1;
+        if (lastFourteen.length === 14 && lastFourteen.indexOf(line.charAt(index)) < 0) {
+            startOfMessageMarker = index;
+            console.log(startOfMessageMarker);
             break;
         }
     }
 });
-
-console.log(startOfMessageMarker);
